@@ -1,27 +1,27 @@
 from itertools import combinations
 n=int(input())
 
-sour=[] # 신맛
-bitter=[] # 쓴맛
+
+arr=[]
 for i in range(n):
-    a,b=map(int,input().split())
-    sour.append(a)
-    bitter.append(b)
+    a=list(map(int,input().split()))
+    arr.append(a)
     
 
-diff=int(10e9)
-for i in range(1,n+1): # 1~n개를 뽑을 경우
-    comb=list(combinations(list(range(n)),i))
+comb=[]
+for i in range(1,n+1):
+    comb.append(combinations(arr,i))
     
-    for food in comb:
+answer=int(10e9)    
+for i in comb:
+    for j in i:
         s=1
         b=0
-        for k in range(i):
-            s*=sour[food[k]]
-            b+=bitter[food[k]]
-        if abs(s-b)<diff:
-            diff=abs(s-b)
-            
+        for k in j:
+            s*=k[0]
+            b+=k[1]
+        answer=min(answer,abs(s-b))
+        
 
 
-print(diff)
+print(answer)
